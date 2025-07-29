@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.SplashScreen
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
@@ -29,7 +30,7 @@ fun App() {
                     onSplashScreenLaunched = {
                         delay(1500)
                         navHostController.popBackStack()
-                        navHostController.navigate("login")
+                        appCoordinator.trigger(AppCoordinatorAction.StartLoginFlow)
                     }
                 )
             }

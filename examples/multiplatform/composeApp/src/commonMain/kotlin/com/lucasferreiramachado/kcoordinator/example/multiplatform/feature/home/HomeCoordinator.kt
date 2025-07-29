@@ -18,20 +18,31 @@ sealed class HomeCoordinatorAction: CoordinatorAction {
 class HomeCoordinator(
     override val parent: Coordinator<*>
 ) : NavigationComposeKCoordinator<HomeCoordinatorAction> {
+    private var navHostController: NavHostController? = null
     override fun handle(action: HomeCoordinatorAction) {
-        // TODO("3. Manipular ações")
+        when (action) {
+            is HomeCoordinatorAction.ShowHomeScreen -> {
+                val username = action.username
+                navHostController?.popBackStack()
+                navHostController?.navigate(HomeScreenRoute(username = username))
+            }
+            is HomeCoordinatorAction.SignOut -> {
+                navHostController?.popBackStack()
+                navHostController?.navigate("login")
+            }
+        }
     }
     override fun setupNavigation(
         navGraphBuilder: NavGraphBuilder,
         navHostController: NavHostController
     ) {
+        this.navHostController = navHostController
         navGraphBuilder.composable<HomeScreenRoute> {
             val route = it.toRoute<HomeScreenRoute>()
             HomeScreen(
                 username = route.username,
                 onSignOutButtonPressed = {
-                    navHostController.popBackStack()
-                    navHostController.navigate("login")
+                    trigger(HomeCoordinatorAction.SignOut)
                 }
             )
         }

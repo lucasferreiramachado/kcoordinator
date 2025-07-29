@@ -17,18 +17,28 @@ sealed class AuthCoordinatorAction: CoordinatorAction {
 class AuthCoordinator(
     override val parent: Coordinator<*>
 ) : NavigationComposeKCoordinator<AuthCoordinatorAction> {
+    private var navHostController: NavHostController? = null
     override fun handle(action: AuthCoordinatorAction) {
-        // TODO("3. Manipular ações")
+        when (action) {
+            is AuthCoordinatorAction.ShowLoginScreen -> {
+                navHostController?.navigate("login")
+            }
+            is AuthCoordinatorAction.Authenticated -> {
+                val username = action.username
+                navHostController?.popBackStack()
+                navHostController?.navigate(HomeScreenRoute(username = username))
+            }
+        }
     }
     override fun setupNavigation(
         navGraphBuilder: NavGraphBuilder,
         navHostController: NavHostController
     ) {
+        this.navHostController = navHostController
         navGraphBuilder.composable( "login") {
             LoginScreen(
                 onUserAuthenticated = { username ->
-                    navHostController.popBackStack()
-                    navHostController.navigate(HomeScreenRoute(username = username))
+                    trigger(AuthCoordinatorAction.Authenticated(username = username))
                 }
             )
         }
