@@ -11,7 +11,8 @@ import com.lucasferreiramachado.kcoordinator.example.multiplatform.HomeScreenRou
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.HomeScreen
 
 sealed class HomeCoordinatorAction: CoordinatorAction {
-    // TODO("2. Definir as ações")
+    data class ShowHomeScreen(val username: String) : HomeCoordinatorAction()
+    data object SignOut : HomeCoordinatorAction()
 }
 
 class HomeCoordinator(

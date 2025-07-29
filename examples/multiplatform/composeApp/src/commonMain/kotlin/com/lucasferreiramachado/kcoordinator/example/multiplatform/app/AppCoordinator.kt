@@ -9,7 +9,8 @@ import com.lucasferreiramachado.kcoordinator.example.multiplatform.di.AuthCoordi
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.di.HomeCoordinatorFactory
 
 sealed class AppCoordinatorAction: CoordinatorAction {
-    // TODO("3. Definir as ações")
+    data object StartLoginFlow : AppCoordinatorAction()
+    data class StartHomeFlow(val username: String) : AppCoordinatorAction()
 }
 
 class AppCoordinator(

@@ -10,7 +10,8 @@ import com.lucasferreiramachado.kcoordinator.example.multiplatform.HomeScreenRou
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.LoginScreen
 
 sealed class AuthCoordinatorAction: CoordinatorAction {
-    // TODO("2. Definir as ações")
+    data object ShowLoginScreen : AuthCoordinatorAction()
+    data class Authenticated(val username: String) : AuthCoordinatorAction()
 }
 
 class AuthCoordinator(
