@@ -75,6 +75,8 @@ kotlin {
             implementation(libs.kotlinx.serialization)
             implementation(libs.material.icons.core)
             implementation(libs.material.icons.extended)
+
+            implementation("io.github.lucasferreiramachado:kcoordinator-navigation-compose:1.0.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
