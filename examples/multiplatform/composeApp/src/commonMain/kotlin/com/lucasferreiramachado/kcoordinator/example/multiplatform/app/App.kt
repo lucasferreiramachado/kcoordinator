@@ -1,18 +1,17 @@
-package com.lucasferreiramachado.kcoordinator.example.multiplatform
+package com.lucasferreiramachado.kcoordinator.example.multiplatform.app
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.SplashScreen
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.ui.screens.SplashScreen
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class HomeScreenRoute(val username: String)
+sealed class AppNavigationRoute {
+    @Serializable data object SplashScreen: AppNavigationRoute()
+}
 
 @Composable
 fun App() {
@@ -20,13 +19,13 @@ fun App() {
         val navHostController = rememberNavController()
         val appCoordinator = AppCoordinator()
         NavHost(
-            startDestination = "splash",
+            startDestination = AppNavigationRoute.SplashScreen,
             navController = navHostController
         ) {
             appCoordinator.setupNavigation(this, navHostController)
 
-            composable("splash") {
-                SplashScreen (
+            composable<AppNavigationRoute.SplashScreen>() {
+                SplashScreen(
                     onSplashScreenLaunched = {
                         delay(1500)
                         navHostController.popBackStack()

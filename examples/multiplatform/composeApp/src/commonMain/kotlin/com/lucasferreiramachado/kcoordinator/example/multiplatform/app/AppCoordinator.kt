@@ -20,8 +20,10 @@ class AppCoordinator(
     homeCoordinatorFactory: HomeCoordinatorFactory = HomeCoordinatorFactory(),
     override val parent: Coordinator<*>? = null
 ) : NavigationComposeKCoordinator<AppCoordinatorAction> {
+
     private val authCoordinator = authCoordinatorFactory.create(parent = this)
     private val homeCoordinator = homeCoordinatorFactory.create(parent = this)
+
     override fun handle(action: AppCoordinatorAction) {
         when (action) {
             is AppCoordinatorAction.StartLoginFlow -> {
