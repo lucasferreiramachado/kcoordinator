@@ -5,9 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.HomeScreen
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.LoginScreen
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinator
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.SplashScreen
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
@@ -19,32 +17,17 @@ data class HomeScreenRoute(val username: String)
 fun App() {
     MaterialTheme {
         val navHostController = rememberNavController()
-
+        val appCoordinator = AppCoordinator()
         NavHost(
             startDestination = "splash",
             navController = navHostController
         ) {
+            appCoordinator.setupNavigation(this, navHostController)
 
             composable("splash") {
-                SplashScreen {
-                    delay(1500)
-                    navHostController.popBackStack()
-                    navHostController.navigate("login")
-                }
-            }
-
-            composable( "login") {
-                LoginScreen { username ->
-                    navHostController.popBackStack()
-                    navHostController.navigate(HomeScreenRoute(username = username))
-                }
-            }
-
-            composable<HomeScreenRoute> {
-                val route = it.toRoute<HomeScreenRoute>()
-                HomeScreen(
-                    username = route.username,
-                    onSignOutButtonPressed = {
+                SplashScreen (
+                    onSplashScreenLaunched = {
+                        delay(1500)
                         navHostController.popBackStack()
                         navHostController.navigate("login")
                     }
