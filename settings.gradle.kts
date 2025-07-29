@@ -28,5 +28,6 @@ dependencyResolutionManagement {
     }
 }
 
+include(":examples:multiplatform:composeApp")
 include(":kcoordinator-navigation-compose")
 include(":kcoordinator-core")
