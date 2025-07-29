@@ -1,38 +1,29 @@
-package com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens
+package com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.auth.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Composable
-@Preview
-fun LoginScreen(
-    onUserAuthenticated: (String) -> Unit,
-) {
-    LoginView(
-        onUserAuthenticated
-    )
-}
 
 @Composable
 fun LoginView(
-    onUserAuthenticated: (String) -> Unit,
+    state: LoginViewState,
+    onEvent: (LoginViewEvent) -> Unit
 ) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -47,11 +38,10 @@ fun LoginView(
                 modifier = Modifier.fillMaxWidth().padding(0.dp, 50.dp, 0.dp, 0.dp)
             )
 
-            OutlinedTextField(
-                value = username,
-                onValueChange = {
-                    username = it
-                },
+            OutlinedTextField(value = state.username, onValueChange = {
+                onEvent(LoginViewEvent.UsernameChanged(it))
+            },
+                isError =  state.usernameError != null,
                 leadingIcon = {
                     Icon(Icons.Default.Person, contentDescription = "person")
                 },
@@ -60,12 +50,21 @@ fun LoginView(
                 },
                 modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
             )
+            if (state.usernameError != null) {
+                Text(
+                    modifier = Modifier.padding(top = 2.dp, bottom = 8.dp),
+                    color = Color.Red,
+                    text = state.usernameError!!
+                )
+            }
 
-            OutlinedTextField(
-                value = password,
-                onValueChange = {
-                    password = it
-                },
+            val showPassword = state.isVisiblePassword
+            val passwordVisualTransformation = if (showPassword)  VisualTransformation.None else PasswordVisualTransformation()
+
+            OutlinedTextField(value = state.password, onValueChange = {
+                onEvent(LoginViewEvent.PasswordChanged(it))
+            },
+                isError =  state.passwordError != null,
                 leadingIcon = {
                     Icon(Icons.Default.Lock, contentDescription = "password")
                 },
@@ -73,24 +72,39 @@ fun LoginView(
                     Text(text = "password")
                 },
                 trailingIcon = {
+                    val image = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                    val description = if (showPassword) "Hide password" else "Show password"
+
                     Icon(
-                        imageVector = Icons.Filled.VisibilityOff,
-                        contentDescription = "Show password"
+                        imageVector = image,
+                        contentDescription = description,
+                        modifier = Modifier.clickable {
+                            onEvent(LoginViewEvent.PasswordVisibilityChanged)
+                        }
                     )
                 },
                 modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp),
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = passwordVisualTransformation
             )
+            if (state.passwordError != null) {
+                Text(
+                    modifier = Modifier.padding(top = 2.dp, bottom = 8.dp),
+                    color = Color.Red,
+                    text = state.passwordError!!
+                )
+            }
 
             OutlinedButton(onClick = {
-                onUserAuthenticated(username)
-            },
+                onEvent(
+                    LoginViewEvent.SignInButtonPressed
+                )},
                 colors = ButtonColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     disabledContainerColor = Color.Transparent,
                     disabledContentColor = Color.Gray
                 ),
+                enabled = state.signInButtonEnabled,
                 modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
                 Text(text = "Sign in",
                     modifier = Modifier.fillMaxWidth().padding(5.dp),

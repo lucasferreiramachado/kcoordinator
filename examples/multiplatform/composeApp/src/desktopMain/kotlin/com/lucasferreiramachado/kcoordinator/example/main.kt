@@ -2,7 +2,7 @@ package com.lucasferreiramachado.kcoordinator.example
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.App
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.App
 
 fun main() = application {
     Window(

@@ -2,7 +2,7 @@ package com.lucasferreiramachado.kcoordinator.example
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.App
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.App
 import kotlinx.browser.document
 
 @OptIn(ExperimentalComposeUiApi::class)

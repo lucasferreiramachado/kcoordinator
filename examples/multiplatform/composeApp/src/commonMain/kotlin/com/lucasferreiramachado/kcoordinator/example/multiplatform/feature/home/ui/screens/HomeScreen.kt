@@ -1,4 +1,4 @@
-package com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens
+package com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.home.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons

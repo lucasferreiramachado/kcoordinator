@@ -75,7 +75,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.lucasferreiramachado",
         artifactId = "kcoordinator",
-        version = "0.0.1"
+        version = "1.0.0"
     )
 
     // Configure POM metadata for the published artifact

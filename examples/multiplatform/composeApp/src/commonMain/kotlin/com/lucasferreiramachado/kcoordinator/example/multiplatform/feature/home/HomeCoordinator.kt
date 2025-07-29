@@ -7,10 +7,13 @@ import androidx.navigation.toRoute
 import com.lucasferreiramachado.kcoordinator.NavigationComposeKCoordinator
 import com.lucasferreiramachado.kcoordinator.coordinator.Coordinator
 import com.lucasferreiramachado.kcoordinator.coordinator.CoordinatorAction
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.HomeScreenRoute
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinator
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.HomeScreen
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.home.ui.screens.HomeScreen
+import kotlinx.serialization.Serializable
+
+sealed class HomeNavigationRoute {
+    @Serializable data class HomeScreen(val username: String): HomeNavigationRoute()
+}
 
 sealed class HomeCoordinatorAction: CoordinatorAction {
     data class ShowHomeScreen(val username: String) : HomeCoordinatorAction()
@@ -20,13 +23,15 @@ sealed class HomeCoordinatorAction: CoordinatorAction {
 class HomeCoordinator(
     override val parent: Coordinator<*>
 ) : NavigationComposeKCoordinator<HomeCoordinatorAction> {
+
     private var navHostController: NavHostController? = null
+
     override fun handle(action: HomeCoordinatorAction) {
         when (action) {
             is HomeCoordinatorAction.ShowHomeScreen -> {
                 val username = action.username
                 navHostController?.popBackStack()
-                navHostController?.navigate(HomeScreenRoute(username = username))
+                navHostController?.navigate(HomeNavigationRoute.HomeScreen(username = username))
             }
             is HomeCoordinatorAction.SignOut -> {
                 navHostController?.popBackStack()
@@ -39,8 +44,9 @@ class HomeCoordinator(
         navHostController: NavHostController
     ) {
         this.navHostController = navHostController
-        navGraphBuilder.composable<HomeScreenRoute> {
-            val route = it.toRoute<HomeScreenRoute>()
+
+        navGraphBuilder.composable<HomeNavigationRoute.HomeScreen> {
+            val route = it.toRoute<HomeNavigationRoute.HomeScreen>()
             HomeScreen(
                 username = route.username,
                 onSignOutButtonPressed = {
