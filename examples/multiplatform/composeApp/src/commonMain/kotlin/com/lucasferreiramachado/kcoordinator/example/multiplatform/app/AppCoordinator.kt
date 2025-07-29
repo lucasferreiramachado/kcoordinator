@@ -5,22 +5,24 @@ import androidx.navigation.NavHostController
 import com.lucasferreiramachado.kcoordinator.NavigationComposeKCoordinator
 import com.lucasferreiramachado.kcoordinator.coordinator.Coordinator
 import com.lucasferreiramachado.kcoordinator.coordinator.CoordinatorAction
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.auth.AuthCoordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.home.HomeCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.di.AuthCoordinatorFactory
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.di.HomeCoordinatorFactory
 
 sealed class AppCoordinatorAction: CoordinatorAction {
     // TODO("3. Definir as ações")
 }
 
 class AppCoordinator(
-    // TODO("2. Injetar as dependências")
+    authCoordinatorFactory: AuthCoordinatorFactory = AuthCoordinatorFactory(),
+    homeCoordinatorFactory: HomeCoordinatorFactory = HomeCoordinatorFactory(),
     override val parent: Coordinator<*>? = null
 ) : NavigationComposeKCoordinator<AppCoordinatorAction> {
-    private val authCoordinator = AuthCoordinator(parent = this)
-    private val homeCoordinator = HomeCoordinator(parent = this)
+    private val authCoordinator = authCoordinatorFactory.create(parent = this)
+    private val homeCoordinator = homeCoordinatorFactory.create(parent = this)
     override fun handle(action: AppCoordinatorAction) {
         // TODO("4. Manipular ações")
     }
+
     override fun setupNavigation(
         navGraphBuilder: NavGraphBuilder,
         navHostController: NavHostController
