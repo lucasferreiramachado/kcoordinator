@@ -8,6 +8,8 @@ import com.lucasferreiramachado.kcoordinator.NavigationComposeKCoordinator
 import com.lucasferreiramachado.kcoordinator.coordinator.Coordinator
 import com.lucasferreiramachado.kcoordinator.coordinator.CoordinatorAction
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.HomeScreenRoute
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.ui.screens.HomeScreen
 
 sealed class HomeCoordinatorAction: CoordinatorAction {
@@ -28,7 +30,7 @@ class HomeCoordinator(
             }
             is HomeCoordinatorAction.SignOut -> {
                 navHostController?.popBackStack()
-                navHostController?.navigate("login")
+                parent.trigger(AppCoordinatorAction.StartLoginFlow)
             }
         }
     }
