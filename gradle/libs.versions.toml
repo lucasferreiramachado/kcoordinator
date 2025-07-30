@@ -39,6 +39,7 @@ kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons" }
 material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons" }
 kcoordinator-navigation-compose = { module = "io.github.lucasferreiramachado:kcoordinator-navigation-compose", version.ref = "kcoordinator" }
+kcoordinator = { module = "io.github.lucasferreiramachado:kcoordinator", version.ref = "kcoordinator" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
