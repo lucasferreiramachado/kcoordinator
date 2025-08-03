@@ -1,0 +1,3 @@
+package com.lucasferreiramachado.kcoordinator
+
+public interface KCoordinatorAction

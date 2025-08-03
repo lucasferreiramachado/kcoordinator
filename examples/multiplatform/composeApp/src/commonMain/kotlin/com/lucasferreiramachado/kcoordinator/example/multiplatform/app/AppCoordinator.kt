@@ -2,15 +2,22 @@ package com.lucasferreiramachado.kcoordinator.example.multiplatform.app
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import com.lucasferreiramachado.kcoordinator.NavigationComposeKCoordinator
-import com.lucasferreiramachado.kcoordinator.coordinator.Coordinator
-import com.lucasferreiramachado.kcoordinator.coordinator.CoordinatorAction
+import androidx.navigation.compose.composable
+import com.lucasferreiramachado.kcoordinator.*
+import com.lucasferreiramachado.kcoordinator.compose.RootComposeKCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.ui.screens.SplashScreen
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.di.AuthCoordinatorFactory
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.di.HomeCoordinatorFactory
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.auth.AuthCoordinatorAction
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.home.HomeCoordinatorAction
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.AuthCoordinatorAction
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.home.HomeCoordinatorAction
+import kotlinx.coroutines.delay
+import kotlinx.serialization.Serializable
 
-sealed class AppCoordinatorAction: CoordinatorAction {
+sealed class AppNavigationRoute {
+    @Serializable data object SplashScreen: AppNavigationRoute()
+}
+
+sealed class AppCoordinatorAction: KCoordinatorAction {
     data object StartLoginFlow : AppCoordinatorAction()
     data class StartHomeFlow(val username: String) : AppCoordinatorAction()
 }
@@ -18,8 +25,8 @@ sealed class AppCoordinatorAction: CoordinatorAction {
 class AppCoordinator(
     authCoordinatorFactory: AuthCoordinatorFactory = AuthCoordinatorFactory(),
     homeCoordinatorFactory: HomeCoordinatorFactory = HomeCoordinatorFactory(),
-    override val parent: Coordinator<*>? = null
-) : NavigationComposeKCoordinator<AppCoordinatorAction> {
+    override val parent: KCoordinator<*>? = null
+) : RootComposeKCoordinator<AppCoordinatorAction> {
 
     private val authCoordinator = authCoordinatorFactory.create(parent = this)
     private val homeCoordinator = homeCoordinatorFactory.create(parent = this)
@@ -37,10 +44,21 @@ class AppCoordinator(
     }
 
     override fun setupNavigation(
+        initialAction: AppCoordinatorAction,
         navGraphBuilder: NavGraphBuilder,
-        navHostController: NavHostController
+        navHostController: NavHostController,
     ) {
         authCoordinator.setupNavigation(navGraphBuilder, navHostController)
         homeCoordinator.setupNavigation(navGraphBuilder, navHostController)
+
+        navGraphBuilder.composable<AppNavigationRoute.SplashScreen>() {
+            SplashScreen(
+                onSplashScreenLaunched = {
+                    delay(1500)
+                    navHostController.popBackStack()
+                    trigger(initialAction)
+                }
+            )
+        }
     }
 }

@@ -1,3 +1,0 @@
-package com.lucasferreiramachado.kcoordinator.coordinator
-
-interface CoordinatorAction

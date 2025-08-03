@@ -1,12 +1,12 @@
 package com.lucasferreiramachado.kcoordinator.example.multiplatform.di
 
-import com.lucasferreiramachado.kcoordinator.coordinator.Coordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.auth.AuthCoordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.feature.home.HomeCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.AuthCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.home.HomeCoordinator
+import com.lucasferreiramachado.kcoordinator.KCoordinator
 
 class AuthCoordinatorFactory {
-    fun create(parent: Coordinator<*>): AuthCoordinator = AuthCoordinator(parent)
+    fun create(parent: KCoordinator<*>): AuthCoordinator = AuthCoordinator(parent)
 }
 class HomeCoordinatorFactory {
-    fun create(parent: Coordinator<*>): HomeCoordinator = HomeCoordinator(parent)
+    fun create(parent: KCoordinator<*>): HomeCoordinator = HomeCoordinator(parent)
 }
