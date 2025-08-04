@@ -22,6 +22,12 @@ class HomeViewModel(
             is HomeUiEvent.DashboardButtonPressed -> {
                 coordinator?.trigger(HomeCoordinatorAction.ShowDashboardScreen)
             }
+            is HomeUiEvent.Feature1Flow1ButtonPressed -> {
+                coordinator?.trigger(HomeCoordinatorAction.StartFeature1Flow1)
+            }
+            is HomeUiEvent.Feature1Flow2ButtonPressed -> {
+                coordinator?.trigger(HomeCoordinatorAction.StartFeature1Flow2)
+            }
         }
     }
 }

@@ -3,14 +3,13 @@ package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.aut
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.login.ui.screens.login.LoginScreen
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.LoginViewModel
-import com.lucasferreiramachado.kcoordinator.compose.ComposeKCoordinator
 import com.lucasferreiramachado.kcoordinator.KCoordinator
 import com.lucasferreiramachado.kcoordinator.KCoordinatorAction
+import com.lucasferreiramachado.kcoordinator.compose.ComposeKCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.login.ui.screens.login.LoginScreen
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.forgotpassword.ForgotPasswordViewModel
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.forgotpassword.composables.ForgotPasswordScreen
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.LoginViewModel
 import kotlinx.serialization.Serializable
 
 sealed class AuthNavigationRoute {
@@ -27,6 +26,7 @@ sealed class AuthCoordinatorAction: KCoordinatorAction {
 }
 
 class AuthCoordinator(
+    val callback: AuthCoordinatorCallback,
     override val parent: KCoordinator<*>
 ) : ComposeKCoordinator<AuthCoordinatorAction> {
 
@@ -43,7 +43,7 @@ class AuthCoordinator(
             is AuthCoordinatorAction.Authenticated -> {
                 val username = action.username
                 navHostController?.popBackStack()
-                parent.trigger(AppCoordinatorAction.StartHomeFlow(username = username))
+                callback.onUserAuthenticated(username = username)
             }
             is AuthCoordinatorAction.GoBack -> {
                 navHostController?.popBackStack()
@@ -59,14 +59,12 @@ class AuthCoordinator(
         navGraphBuilder.apply {
 
             composable<AuthNavigationRoute.LoginScreen> {
-                val viewModel = LoginViewModel()
-                viewModel.coordinator = this@AuthCoordinator
+                val viewModel = LoginViewModel(coordinator = this@AuthCoordinator)
                 LoginScreen(viewModel)
             }
 
             composable<AuthNavigationRoute.ForgotPasswordScreen> {
-                val viewModel = ForgotPasswordViewModel()
-                viewModel.coordinator = this@AuthCoordinator
+                val viewModel = ForgotPasswordViewModel(coordinator = this@AuthCoordinator)
                 ForgotPasswordScreen(viewModel)
             }
         }

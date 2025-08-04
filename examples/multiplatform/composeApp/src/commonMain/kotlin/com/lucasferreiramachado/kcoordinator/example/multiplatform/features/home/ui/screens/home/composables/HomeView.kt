@@ -74,6 +74,44 @@ fun HomeView(
 
             OutlinedButton(
                 onClick = {
+                    onEvent(HomeUiEvent.Feature1Flow1ButtonPressed)
+                },
+                modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp),
+                colors = ButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    disabledContainerColor = Color.Transparent,
+                    disabledContentColor = Color.Transparent
+                ),
+            ) {
+                Text(text = "Feature 1: Flow1",
+                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp
+                )
+            }
+
+            OutlinedButton(
+                onClick = {
+                    onEvent(HomeUiEvent.Feature1Flow2ButtonPressed)
+                },
+                modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp),
+                colors = ButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    disabledContainerColor = Color.Transparent,
+                    disabledContentColor = Color.Transparent
+                ),
+            ) {
+                Text(text = "Feature 1: Flow2",
+                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp
+                )
+            }
+
+            OutlinedButton(
+                onClick = {
                   onEvent(HomeUiEvent.SignOutButtonPressed)
                 },
                 modifier = Modifier.fillMaxWidth().padding(0.dp, 16.dp, 0.dp, 0.dp),

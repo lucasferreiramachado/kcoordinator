@@ -7,7 +7,6 @@ import androidx.navigation.toRoute
 import com.lucasferreiramachado.kcoordinator.KCoordinator
 import com.lucasferreiramachado.kcoordinator.KCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.compose.ComposeKCoordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.home.ui.screens.dashboard.DashboardViewModel
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.home.ui.screens.dashboard.composables.DashboardScreen
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.home.ui.screens.home.HomeUiState
@@ -25,9 +24,12 @@ sealed class HomeCoordinatorAction: KCoordinatorAction {
     data object ShowDashboardScreen : HomeCoordinatorAction()
     data object SignOut : HomeCoordinatorAction()
     data object GoBack : HomeCoordinatorAction()
+    data object StartFeature1Flow1 : HomeCoordinatorAction()
+    data object StartFeature1Flow2 : HomeCoordinatorAction()
 }
 
 class HomeCoordinator(
+    val callback: HomeCoordinatorCallback,
     override val parent: KCoordinator<*>
 ) : ComposeKCoordinator<HomeCoordinatorAction> {
 
@@ -45,10 +47,16 @@ class HomeCoordinator(
             }
             is HomeCoordinatorAction.SignOut -> {
                 navHostController?.popBackStack()
-                parent.trigger(AppCoordinatorAction.StartLoginFlow)
+                callback.startLoginFlow()
             }
             is HomeCoordinatorAction.GoBack -> {
                 navHostController?.popBackStack()
+            }
+            is HomeCoordinatorAction.StartFeature1Flow1 -> {
+                callback.startFeature1Flow1()
+            }
+            is HomeCoordinatorAction.StartFeature1Flow2 -> {
+                callback.startFeature1Flow2()
             }
         }
     }
@@ -63,7 +71,7 @@ class HomeCoordinator(
             composable<HomeNavigationRoute.HomeScreen> {
                 val route = it.toRoute<HomeNavigationRoute.HomeScreen>()
 
-                val initialState: HomeUiState = HomeUiState(
+                val initialState = HomeUiState(
                     username = route.username
                 )
                 val viewModel = HomeViewModel(initialState)

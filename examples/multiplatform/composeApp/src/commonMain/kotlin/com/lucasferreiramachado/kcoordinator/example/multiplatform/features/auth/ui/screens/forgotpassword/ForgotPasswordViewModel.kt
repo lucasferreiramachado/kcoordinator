@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class ForgotPasswordViewModel(
-    initialState: ForgotPasswordUiState = ForgotPasswordUiState()
+    initialState: ForgotPasswordUiState = ForgotPasswordUiState(),
+    val coordinator: KCoordinator<AuthCoordinatorAction>? = null,
 ) : ViewModel() {
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<ForgotPasswordUiState> = _state.asStateFlow()
-    var coordinator: KCoordinator<AuthCoordinatorAction>? = null
     
     fun onEvent(event: ForgotPasswordEvent) {
         when (event) {

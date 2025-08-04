@@ -13,13 +13,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class LoginViewModel(
-    initialState: LoginUiState = LoginUiState()
+    initialState: LoginUiState = LoginUiState(),
+    val coordinator: KCoordinator<AuthCoordinatorAction>? = null,
 ) : ViewModel() {
     private val _state = MutableStateFlow(initialState)
 
     val state: StateFlow<LoginUiState> = _state.asStateFlow()
-
-    var coordinator: KCoordinator<AuthCoordinatorAction>? = null
 
     fun onEvent(event: LoginUiEvent) {
         when (event) {
