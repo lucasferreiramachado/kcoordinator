@@ -86,6 +86,9 @@ A convenient and powerful coordinator pattern library designed for Navigation Co
 
 [examples/multiplatform](https://github.com/lucasferreiramachado/kcoordinator/tree/main/examples/multiplatform)
 
+<p align=center><img width="100%" alt="coordinator1 drawio-2" src="https://github.com/user-attachments/assets/391b858b-08d1-427f-9cd9-f135405fc2dc" /></p>
+
+
 This repository showcases a flexible navigation approach for Jetpack Compose applications by implementing the Coordinator pattern. This pattern simplifies the management of complex navigation flows and screen transitions, offering a well-structured way to handle navigation across different screens in an Android ou Multiplatorm Compose apps.
 
 ## How It Works
