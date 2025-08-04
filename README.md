@@ -101,6 +101,10 @@ This repository showcases a flexible navigation approach for Jetpack Compose app
 
 - **HomeCoordinator**: Manages the main flow, including the home screen and settings screens.
 
+
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/61677e0a-524d-48ae-87a6-20433950961c" />
+
+
 ## Usage
 
 ### Setting Up Coordinators
