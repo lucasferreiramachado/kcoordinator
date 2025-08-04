@@ -204,18 +204,18 @@ In your `Compose App` or `MainActivity`, to initialize the `AppCoordinator` and 
 
    ```kotlin
     @Composable
-fun App(
-   startDestination: Any = AppNavigationRoute.SplashScreen,
-   initialAction: AppCoordinatorAction = AppCoordinatorAction.StartLoginFlow,
-) {
-   MaterialTheme {
-      val appCoordinator = AppCoordinator()
-      appCoordinator.start(
-         startDestination,
-         initialAction = initialAction
-      )
-   }
-}
+    fun App(
+       startDestination: Any = AppNavigationRoute.SplashScreen,
+       initialAction: AppCoordinatorAction = AppCoordinatorAction.StartLoginFlow,
+    ) {
+       MaterialTheme {
+          val appCoordinator = AppCoordinator()
+          appCoordinator.start(
+             startDestination,
+             initialAction = initialAction
+          )
+       }
+    }
    ```
 
 ## Conclusion
