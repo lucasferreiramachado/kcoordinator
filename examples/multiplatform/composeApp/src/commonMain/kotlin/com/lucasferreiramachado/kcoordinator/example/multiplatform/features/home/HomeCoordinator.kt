@@ -30,7 +30,6 @@ sealed class HomeCoordinatorAction: KCoordinatorAction {
 
 class HomeCoordinator(
     val callback: HomeCoordinatorCallback,
-    override val parent: KCoordinator<*>
 ) : ComposeKCoordinator<HomeCoordinatorAction> {
 
     private var navHostController: NavHostController? = null

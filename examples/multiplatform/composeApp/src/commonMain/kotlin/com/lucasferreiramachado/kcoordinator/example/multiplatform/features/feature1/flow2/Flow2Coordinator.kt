@@ -3,10 +3,8 @@ package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.fea
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.lucasferreiramachado.kcoordinator.KCoordinator
 import com.lucasferreiramachado.kcoordinator.KCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.compose.ComposeKCoordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.feature1.Feature1CoordinatorAction
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.feature1.flow2.ui.screens.screen1.Screen1ViewModel
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.feature1.flow2.ui.screens.screen1.composables.Screen1
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.feature1.flow2.ui.screens.screen2.Screen2ViewModel
@@ -28,7 +26,7 @@ sealed class Flow2CoordinatorAction: KCoordinatorAction {
 }
 
 class Flow2Coordinator(
-    override val parent: KCoordinator<*>
+    val callback: Flow2CoordinatorCallback,
 ) : ComposeKCoordinator<Flow2CoordinatorAction> {
 
     private var navHostController: NavHostController? = null
@@ -46,7 +44,7 @@ class Flow2Coordinator(
             }
             is Flow2CoordinatorAction.StarFlow1 -> {
                 navHostController?.popBackStack()
-                parent.trigger(Feature1CoordinatorAction.StartFlow1)
+                callback.starFlow1()
             }
         }
     }

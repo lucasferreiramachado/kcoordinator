@@ -76,8 +76,8 @@ kotlin {
             implementation(libs.material.icons.core)
             implementation(libs.material.icons.extended)
 
-            implementation(libs.kcoordinator)
-            implementation(libs.kcoordinator.navigation.compose)
+            implementation(projects.kcoordinatorCore)
+            implementation(projects.kcoordinatorNavigationCompose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

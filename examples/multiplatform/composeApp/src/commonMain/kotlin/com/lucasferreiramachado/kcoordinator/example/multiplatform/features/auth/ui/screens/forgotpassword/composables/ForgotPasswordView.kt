@@ -1,4 +1,4 @@
-package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.flow.login.ui.screens.forgotpassword.views
+package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.forgotpassword.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -1,5 +1,0 @@
-package com.lucasferreiramachado.kcoordinator
-
-import com.lucasferreiramachado.kcoordinator.compose.ComposeKCoordinator
-
-public interface NavigationComposeKCoordinator<Action: KCoordinatorAction>: ComposeKCoordinator<Action>

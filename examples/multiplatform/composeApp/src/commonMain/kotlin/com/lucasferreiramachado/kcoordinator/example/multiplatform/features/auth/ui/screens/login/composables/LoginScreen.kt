@@ -1,11 +1,11 @@
-package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.login.ui.screens.login
+package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.login.ui.screens.login.LoginUiState
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.LoginUiEvent
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.LoginViewModel
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.composables.LoginView
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -16,6 +16,7 @@ fun LoginScreen(
     LoginView(
         state = state,
         onEvent = { event ->
+
             viewModel.onEvent(event)
         }
     )

@@ -3,10 +3,9 @@ package com.lucasferreiramachado.kcoordinator.example.multiplatform.features.aut
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.lucasferreiramachado.kcoordinator.KCoordinator
 import com.lucasferreiramachado.kcoordinator.KCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.compose.ComposeKCoordinator
-import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.login.ui.screens.login.LoginScreen
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.composables.LoginScreen
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.forgotpassword.ForgotPasswordViewModel
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.forgotpassword.composables.ForgotPasswordScreen
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.auth.ui.screens.login.LoginViewModel
@@ -27,7 +26,6 @@ sealed class AuthCoordinatorAction: KCoordinatorAction {
 
 class AuthCoordinator(
     val callback: AuthCoordinatorCallback,
-    override val parent: KCoordinator<*>
 ) : ComposeKCoordinator<AuthCoordinatorAction> {
 
     private var navHostController: NavHostController? = null

@@ -1,11 +1,12 @@
 package com.lucasferreiramachado.kcoordinator.example.multiplatform.app.handlers
 
 import com.lucasferreiramachado.kcoordinator.KCoordinator
+import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinator
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.app.AppCoordinatorAction
 import com.lucasferreiramachado.kcoordinator.example.multiplatform.features.home.HomeCoordinatorCallback
 
 class HomeCallbackHandler(
-    val parent: KCoordinator<*>
+    val parent: AppCoordinator
 ): HomeCoordinatorCallback {
 
     override fun startLoginFlow() {

@@ -8,8 +8,9 @@ fun App(
     startDestination: Any = AppNavigationRoute.SplashScreen,
     initialAction: AppCoordinatorAction = AppCoordinatorAction.StartLoginFlow,
 ) {
+    val appCoordinator = AppCoordinator()
+
     MaterialTheme {
-        val appCoordinator = AppCoordinator()
         appCoordinator.start(
             startDestination,
             initialAction = initialAction

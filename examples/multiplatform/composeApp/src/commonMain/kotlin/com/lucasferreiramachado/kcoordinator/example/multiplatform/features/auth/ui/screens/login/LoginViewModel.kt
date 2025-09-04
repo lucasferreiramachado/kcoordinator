@@ -15,6 +15,9 @@ import kotlinx.coroutines.flow.update
 class LoginViewModel(
     initialState: LoginUiState = LoginUiState(),
     val coordinator: KCoordinator<AuthCoordinatorAction>? = null,
+    val validateUsernameUseCase: ValidateUsernameUseCase = ValidateUsernameUseCase(),
+    val validatePasswordUseCase: ValidatePasswordUseCase = ValidatePasswordUseCase(),
+    val validateLoginInputUseCase: ValidateLoginInputUseCase = ValidateLoginInputUseCase()
 ) : ViewModel() {
     private val _state = MutableStateFlow(initialState)
 
@@ -24,7 +27,7 @@ class LoginViewModel(
         when (event) {
             is LoginUiEvent.UsernameChanged -> {
                 val username = event.username
-                val usernameError = ValidateUsernameUseCase().execute(username)
+                val usernameError = validateUsernameUseCase.execute(username)
                 _state.update { state ->
                     state.copy(
                         username = username,
@@ -34,7 +37,7 @@ class LoginViewModel(
             }
             is LoginUiEvent.PasswordChanged -> {
                 val password = event.password
-                val passwordError = ValidatePasswordUseCase().execute(password)
+                val passwordError = validatePasswordUseCase.execute(password)
                 _state.update { state ->
                     state.copy(
                         password = password,
@@ -50,7 +53,7 @@ class LoginViewModel(
                 }
             }
             is LoginUiEvent.SignInButtonPressed -> {
-                val result = ValidateLoginInputUseCase().execute(
+                val result = validateLoginInputUseCase.execute(
                     state.value.username,
                     state.value.password
                 )
