@@ -1,10 +1,10 @@
 # KCoordinator:
-#### io.github.lucasferreiramachado:kcoordinator: 1.1.0
+#### io.github.lucasferreiramachado:kcoordinator: 1.1.1
 
 A lightweight, cross-platform Coordinator library, written in pure Kotlin. Can easily support other navigation libraries or a custom navigation logic.
 
 # KCoordinator Navigation Compose:
-#### io.github.lucasferreiramachado:kcoordinator-navigation-compose: 1.1.0
+#### io.github.lucasferreiramachado:kcoordinator-navigation-compose: 1.1.1
 
 A convenient and powerful coordinator pattern library designed for Navigation Compose library.
 

@@ -79,7 +79,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.lucasferreiramachado",
         artifactId = "kcoordinator-navigation-compose",
-        version = "1.1.0"
+        version = "1.1.1"
     )
 
     // Configure POM metadata for the published artifact
