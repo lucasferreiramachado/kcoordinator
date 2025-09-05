@@ -16,12 +16,10 @@ A convenient and powerful coordinator pattern library designed for Navigation Co
     interface KCoordinatorAction
     ```
 
-2. **KCoordinator: Core Coordinator**: The Coordinator core interface in pure Kotlin. Each coordinator can set up navigation, trigger and handle actions and also holds a reference to its parent coordinator.
+2. **KCoordinator: Core Coordinator**: The Coordinator core interface in pure Kotlin. Each coordinator can set up navigation and trigger and handle actions.
 
    ```kotlin
     interface KCoordinator<T: KCoordinatorAction> {
-        
-        val parent: KCoordinator<*>?
         
         fun trigger(action: KCoordinatorAction) {
             // Default implementation: do not override
@@ -31,10 +29,9 @@ A convenient and powerful coordinator pattern library designed for Navigation Co
     }
     ```
 
-3. **ComposeKCoordinator: Navigation Compose Coordinator**: The Compose Coordinator interface. Each Compose Coordinator can set up navigation, trigger and handle actions, setting up navigation compose and also holds a reference to its parent coordinator.
+3. **ComposeKCoordinator: Navigation Compose Coordinator**: The Compose Coordinator interface. Each Compose Coordinator can set up navigation, trigger and handle actions and setting up navigation compose.
     ```kotlin
     interface ComposeKCoordinator<T: KCoordinatorAction> : KCoordinator<T> {
-        val parent: KCoordinator<*>?
    
         fun trigger(action: KCoordinatorAction) {
             // Default implementation: do not override
@@ -119,12 +116,10 @@ This repository showcases a flexible navigation approach for Jetpack Compose app
    ```
 
    ```kotlin
-    class AppCoordinator(
-        override val parent: Coordinator<*>? = null
-    ) : ComposeKCoordinator<AppCoordinatorAction> {
+    class AppCoordinator() : ComposeKCoordinator<AppCoordinatorAction> {
 
-       private val authCoordinator: AuthCoordinator by lazy { AuthCoordinator(this) }
-       private val homeCoordinator: HomeCoordinator by lazy { HomeCoordinator(this) }
+       private val authCoordinator: AuthCoordinator by lazy { AuthCoordinator() }
+       private val homeCoordinator: HomeCoordinator by lazy { HomeCoordinator() }
 
        fun setupNavigation(
            navGraphBuilder: NavGraphBuilder,
@@ -157,9 +152,7 @@ This repository showcases a flexible navigation approach for Jetpack Compose app
    ```
 
    ```kotlin
-    class AuthCoordinator(
-        override val parent: Coordinator<*>
-    ) : ComposeKCoordinator<AuthCoordinatorAction> {
+    class AuthCoordinator() : ComposeKCoordinator<AuthCoordinatorAction> {
         
         override fun setupNavigation(
             navGraphBuilder: NavGraphBuilder,
@@ -185,9 +178,7 @@ This repository showcases a flexible navigation approach for Jetpack Compose app
    ```
 
    ```kotlin
-    class HomeCoordinator(
-        override val parent: Coordinator<*>
-    ) : ComposeKCoordinator<HomeCoordinatorAction> {
+    class HomeCoordinator() : ComposeKCoordinator<HomeCoordinatorAction> {
         
         override fun setupNavigation(
             navGraphBuilder: NavGraphBuilder,
